@@ -1,15 +1,26 @@
-
+import re #for using regular expression 
 
 class Tokenizer:
 
-    signs = ['=',';','+','-','*','(',')']
+    signs = { 'Id': re.compile(r'[a-zA-Z_]([a-zA-Z_]|[0-9])*'),
+              'Lit': re.compile(r'0|[1-9][0-9]*'),
+              'Dot': re.compile('.'),
+              '=': re.compile(r'='),
+              ';': re.compile(r';'),
+              '+': re.compile(r'\+'),
+              '-': re.compile(r'-'),
+              '*': re.compile(r'\*'),
+              '(': re.compile(r'\('),
+              ')': re.compile(r'\)'),
+              }
     def __init__(self, string):
         #removing whitespace 
         self.string = ''.join(list(filter(lambda x: x != ' ',string)))
-        self.endPoint = len(self.string)
         self.currentPosition = 0
+        self.endPoint = len(self.string)
 
-    # read the next token that starts from currentPosition and return the token and its type
+    # read the next vaild token 
+    # then return the token and its type
     def next_token(self):
         if self.currentPosition < self.endPoint:
             if self.string[self.currentPosition].find('.') != -1:
