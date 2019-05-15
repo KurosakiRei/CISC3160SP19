@@ -2,6 +2,7 @@ import re #for using regular expression
 
 class Tokenizer:
 
+    #dictionaries the token types
     signs = { 'Id': re.compile(r'[a-zA-Z_]([a-zA-Z_]|[0-9])*'),
               'Lit': re.compile(r'0|[1-9][0-9]*'),
               'Dot': re.compile('.'),
@@ -19,20 +20,20 @@ class Tokenizer:
         self.currentPosition = 0
         self.endPoint = len(self.string)
 
-    # read the next vaild token 
-    # then return the token and its type
+    # In order to read the next vaild token 
+    # and then return the token and its type
     def next_token(self):
         if self.currentPosition < self.endPoint:
-            if self.string[self.currentPosition].find('.') != -1:
-                return {'token': '', 'type': 'error'} 
-            if self.string[self.currentPosition].isalnum():
-                return {'token': self.string[self.currentPosition], 'type': 'Id'}
-            if self.string[self.currentPosition].isalpha():
-                return {'token': self.string[self.currentPosition], 'type': 'Lit'}
-            for sign in self.signs:
-                match = self.signs[sign] == self.string[self.currentPosition]
+            #check if the string contained '.'
+            if self.string.find('.') != -1:
+                print('error')
+                raise Exception('ERROR: unrecognized character "." ' + self.text[match.start():match.end()])
+            for pattern in self.signs:
+                match = self.signs[pattern].match(self.string, self.currentPosition)
                 if match:
-                        return {'token': self.string[self.currentPosition], 'type': sign} 
+                        self.currentPosition = match.end()
+                        return {'token': self.string[match.start():match.end()], 'type': pattern} 
+                    #return the string and its type
         else:
             #return the 'EOF' when it touch the end
             return {'token': '', 'type': 'EOF'}
