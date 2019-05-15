@@ -5,14 +5,13 @@ class Tokenizer:
     #dictionaries the token types
     signs = { 'Id': re.compile(r'[a-zA-Z_]([a-zA-Z_]|[0-9])*'),
               'Lit': re.compile(r'0|[1-9][0-9]*'),
-              'Dot': re.compile('.'),
-              '=': re.compile(r'='),
-              ';': re.compile(r';'),
-              '+': re.compile(r'\+'),
-              '-': re.compile(r'-'),
-              '*': re.compile(r'\*'),
-              '(': re.compile(r'\('),
-              ')': re.compile(r'\)'),
+              '=': re.compile('\='),
+              ';': re.compile('\;'),
+              '+': re.compile('\+'),
+              '-': re.compile('\-'),
+              '*': re.compile('\*'),
+              '(': re.compile('\('),
+              ')': re.compile('\)'),
               }
     def __init__(self, string):
         #removing whitespace 
@@ -35,5 +34,5 @@ class Tokenizer:
                         return {'token': self.string[match.start():match.end()], 'type': pattern} 
                     #return the string and its type
         else:
-            #return the 'EOF' when it touch the end
+            #return the 'EOF' when it touch the end of file
             return {'token': '', 'type': 'EOF'}
