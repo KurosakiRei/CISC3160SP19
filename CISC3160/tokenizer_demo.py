@@ -26,7 +26,7 @@ class Tokenizer:
             #check if the string contained '.'
             if self.string.find('.') != -1:
                 print('error')
-                raise Exception('ERROR: unrecognized character "." ' + self.text[match.start():match.end()])
+                raise Exception('ERROR: unrecognized character', self.text[match.start():match.end()])
             for pattern in self.signs:
                 match = self.signs[pattern].match(self.string, self.currentPosition)
                 if match:
