@@ -67,7 +67,25 @@ class Parser:
         else:
             return 1
 
-    
+    #factors
+    def factor(self):
+        self.readToken()
+        if self.currentToken['type'] == '(':
+            exp = self.exp()
+            self.match(')')
+            return exp
+        elif self.currentToken['type'] == '-':
+            return -1 * self.factor()
+        elif self.currentToken['type'] == '+':
+            return self.factor()
+        elif self.currentToken['type'] == 'Lit':
+            return int(self.currentToken['token'])
+        elif self.currentToken['type'] == 'Id':
+            if self.currentToken['token'] in self.symbolTable:
+                return self.symbolTable.get(self.currentToken['token'])
+            else:
+                print('error')
+                raise Exception('Uninitialized variable error: ' + self.currentToken['token'])
 
     #Print out the Symbol Table
     def print_table(self):
