@@ -7,3 +7,5 @@ The following defines a simple language, in which a program consists of assignme
  (3) perform the assignments if there is no error and print out the values of all the variables after all the assignments are done.
  ## Prerequisites
  Python v3 
+## Instructions for use
+ Just run the main.py and enter the different filename (make sure that included file extension)for testing 
